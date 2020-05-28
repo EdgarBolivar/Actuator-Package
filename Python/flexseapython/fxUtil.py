@@ -36,7 +36,10 @@ def printExo(exoState: ExoState):
 	print('Motor voltage:        ', exoState.motorVoltage)
 	print('Battery Current (mA): ', exoState.batteryCurrent)
 	print('Battery Voltage (mV): ', exoState.batteryVoltage)
-	print('Battery Temp (C):     ', exoState.batteryTemp)
+	print('Ankle Angle:          ', exoState.ankleAngle)
+	print('Ankle Velocity:       ', exoState.ankleVelocity)
+	print('Shank Angle:     	 ', exoState.shankAngle)
+	print('Shank Velocity:		  ', exoState.shankVelocity)
 
 # By default takes just one device from your com.txt file
 # If two arguments are passed, one is the path of the COM.txt file
