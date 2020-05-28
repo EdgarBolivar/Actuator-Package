@@ -39,7 +39,21 @@ def fxReadOnly(port, baudRate, time = 8, time_step = 0.1):
 	# print(devId)
 	fxStartStreaming(devId, frequency = 100, shouldLog = dataLog)
 	appType = fxGetAppType(devId)
-
+	if (appType == FxActPack):
+		print('\nYour device is an ActPack \n')
+		input("Press Enter to continue...")
+	elif (appType == FxNetMaster):
+		print('\nYour device is a NetMaster\n')
+		input("Press Enter to continue...")
+	elif (appType == FxBMS):
+		print('\nYour device is a BMS \n')
+		input("Press Enter to continue...")
+	elif (appType == FxExo):
+		print('\nYour device is an Exo \n')
+		input("Press Enter to continue...")
+		printExo(myData)
+	else:
+		raise RuntimeError('Unsupported application type: ', appType)
 	for i in range(int(time/time_step)):
 		sleep(time_step)
 		clearTerminal()
