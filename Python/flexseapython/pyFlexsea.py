@@ -574,10 +574,13 @@ def fxSendMotorCommand(devId, controlMode, value):
 	print('Debug: fxSendMotorCommand(): retCode:', retCode)
 
 	if (retCode == FxInvalidDevice):
+		print('fxSendMotorCommand(): Invalid device ID: retCode:', retCode)
 		raise ValueError('fxSendMotorCommand: invalid device ID')
 	if (retCode == FxFailure):
+		print('fxSendMotorCommand(): Command failed: retCode:', retCode)
 		raise IOError('fxSendMotorCommand: command failed')
 	if (retCode == FxInvalidParam):
+		print('fxSendMotorCommand(): Invalid control type: retCode:', retCode)
 		raise ValueError('fxSendMotorCommand: invalid controlType')
 
 def fxGetAppType(devId):
