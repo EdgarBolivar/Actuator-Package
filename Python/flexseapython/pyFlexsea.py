@@ -2,7 +2,7 @@ from ctypes import *
 import os
 import sys
 import platform
-from enum import Enum
+from enum import IntEnum
 
 global flexsea
 
@@ -25,6 +25,14 @@ global flexsea
  FxInvalidDevice,
  FxNotStreaming) = map(c_int, range(5))
 
+
+class ReturnCode(IntEnum):
+	FxSuccess = 0
+	FxFailure = 1
+	FxInvalidParam = 2
+	FxInvalidDevice = 3
+	FxNotStreaming = 4
+
 ###################### App Type Enums #############################
 
 (FxInvalidApp,
@@ -37,6 +45,7 @@ global flexsea
 # See "actpack_struct.h" for C definition
 
 class ActPackState(Structure):
+	_pack_ = 1
 	_fields_ = [
 			("rigid"	  , c_int),
 			("id"		  , c_int),
@@ -61,11 +70,11 @@ class ActPackState(Structure):
 			("genVar"    , c_int * 10),
 			("ankleAngle"	  , c_int),
 			("ankleVelocity"  , c_int),
-			("SystemTime"	  , c_long),
+			("SystemTime"	  , c_int),
 			("dataArray" , c_int * 33)]
-			#("dataArray", c_long * 33)]
 
 class NetNodeState(Structure):
+	_pack_ = 1
 	_fields_ = [
 			("accelx"	  , c_int),
 			("accely"	  , c_int),
@@ -75,10 +84,11 @@ class NetNodeState(Structure):
 			("gyroz"	  , c_int),
 			("pressure"	  , c_int),
 			("status"	  , c_int),
-			("SystemTime"	, c_long),
+			("SystemTime"	, c_int),
 			("dataArray" , c_int * 9)]
 
 class NetMasterState(Structure):
+	_pack_ = 1
 	_fields_ = [
 			("netmaster"	, c_int),
 			("id"		  	, c_int),
@@ -86,11 +96,12 @@ class NetMasterState(Structure):
 			("genvar"     	, c_int * 4),
 			("status"	  	, c_int),
 			("netNode"		, c_int * 8),
-			("SystemTime"	, c_long),
+			("SystemTime"	, c_int),
 			("dataArray" 	, c_int * 73)]
 
 
 class BMSState(Structure):
+	_pack_ = 1
 	_fields_ = [
 			("bms" 		  		, c_int),
 			("id"		  		, c_int),
@@ -104,10 +115,11 @@ class BMSState(Structure):
 			("packImbalance"	, c_int),
 			("temperature"		, c_int * 4),
 			("genvar"			, c_int * 4),
-			("SystemTime"		, c_long),
+			("SystemTime"		, c_int),
 			("dataArray" 		, c_int * 26)]
 
 class ExoState(Structure):
+		_pack_ = 1
 		_fields_ = [
 			("rigid"							, c_int),
 			("id"		  						, c_int),
@@ -153,7 +165,7 @@ class ExoState(Structure):
 			("bi_training_status"				, c_int),
 			("bi_need_steps"					, c_int),
 			("bi_step_count"					, c_int),
-			("SystemTime"						, c_long),
+			("SystemTime"						, c_int),
 			("dataArray" 						, c_int * 54)]
 
 
@@ -558,6 +570,8 @@ def fxSendMotorCommand(devId, controlMode, value):
 	global flexsea
 
 	retCode = flexsea.fxSendMotorCommand(devId, controlMode, c_int(int(value)))
+	# retCode = ReturnCode(flexsea.fxSendMotorCommand(devId, controlMode, c_int(int(value))))
+	print('Debug: fxSendMotorCommand(): retCode:', retCode)
 
 	if (retCode == FxInvalidDevice):
 		raise ValueError('fxSendMotorCommand: invalid device ID')
