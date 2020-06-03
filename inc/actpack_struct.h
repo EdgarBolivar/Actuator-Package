@@ -28,6 +28,7 @@
 extern "C"
 {
 #endif
+
 #pragma pack(1)
 
 struct ActPackState
@@ -68,6 +69,7 @@ struct ActPackState
 	int systemTime;
 	uint32_t deviceData[ACTPACK_STRUCT_DEVICE_FIELD_COUNT];
 };
+
 #pragma pack()
 
 /// \brief Assigns the data in the buffer to the correct struct parameters

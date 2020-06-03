@@ -28,6 +28,7 @@
 extern "C"
 {
 #endif
+
 #pragma pack(1)
 
 struct BMSState
@@ -63,6 +64,7 @@ struct BMSState
 	int systemTime;
 	uint32_t deviceData[BMS_STRUCT_DEVICE_FIELD_COUNT];
 };
+
 #pragma pack()
 
 /// \brief Assigns the data in the buffer to the correct struct parameters

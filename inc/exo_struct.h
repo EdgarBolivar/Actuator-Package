@@ -28,6 +28,7 @@
 extern "C"
 {
 #endif
+
 #pragma pack(1)
 
 struct ExoState
