@@ -566,6 +566,7 @@ def fxSendMotorCommand(devId, controlMode, value):
 
 	retCode = flexsea.fxSendMotorCommand(devId, controlMode, c_int(int(value)))
 	# retCode = ReturnCode(flexsea.fxSendMotorCommand(devId, controlMode, c_int(int(value))))
+	print('Debug: fxSendMotorCommand(): retCode:', retCode)
 
 	if (retCode == FxInvalidDevice):
 		raise ValueError('fxSendMotorCommand: invalid device ID')
