@@ -2,7 +2,7 @@ from ctypes import *
 import os
 import sys
 import platform
-from enum import Enum
+from enum import IntEnum
 
 global flexsea
 
@@ -24,6 +24,14 @@ global flexsea
  FxInvalidParam,
  FxInvalidDevice,
  FxNotStreaming) = map(c_int, range(5))
+
+
+class ReturnCode(IntEnum):
+	FxSuccess = 0
+	FxFailure = 1
+	FxInvalidParam = 2
+	FxInvalidDevice = 3
+	FxNotStreaming = 4
 
 ###################### App Type Enums #############################
 
@@ -557,6 +565,7 @@ def fxSendMotorCommand(devId, controlMode, value):
 	global flexsea
 
 	retCode = flexsea.fxSendMotorCommand(devId, controlMode, c_int(int(value)))
+	# retCode = ReturnCode(flexsea.fxSendMotorCommand(devId, controlMode, c_int(int(value))))
 
 	if (retCode == FxInvalidDevice):
 		raise ValueError('fxSendMotorCommand: invalid device ID')
