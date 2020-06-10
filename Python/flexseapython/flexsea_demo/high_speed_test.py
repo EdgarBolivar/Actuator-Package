@@ -1,6 +1,6 @@
-import os, sys, math
+# import os, sys, math  # Not used
 from time import sleep, time, strftime
-from enum import Enum
+# from enum import Enum  # Not used
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
@@ -63,7 +63,7 @@ def fxHighSpeedTest(port0, baudRate, port1 = "", controllerType = hssCurrent,
 	dataLog = False 		# Data log logs device data
 
 	delay_time = float(1 / (float(commandFreq)))
-	print(delay_time)
+	print(delay_time)		# Default: 1ms
 
 	# Open the device and start streaming
 	devId0 = fxOpen(port0, baudRate, debugLoggingLevel) 
@@ -227,14 +227,14 @@ def fxHighSpeedTest(port0, baudRate, port1 = "", controllerType = hssCurrent,
 
 	# Figure: setpoint, desired vs measured (1st device)
 	fig = 1	# First time, functions will increment
-	fig = plotSetpointVsDesired(devId0, fig, controllerType, actualFrequency, signalAmplitude, signalTypeStr, commandFrequency, times,
-						requests, measurements0, cycleStopTimes)
+	fig = plotSetpointVsDesired(devId0, fig, controllerType, actualFrequency, signalAmplitude,
+				signalTypeStr, commandFrequency, times, requests, measurements0, cycleStopTimes)
 	fig = plotExpStats(devId0, fig, dev0WriteCommandTimes, dev0ReadCommandTimes)
 
 	# Figure: setpoint, desired vs measured (2nd device)
 	if(secondDevice):
-		fig = plotSetpointVsDesired(devId1, fig, controllerType, actualFrequency, signalAmplitude, signalTypeStr, commandFrequency,
-						times, requests, measurements1, cycleStopTimes)
+		fig = plotSetpointVsDesired(devId1, fig, controllerType, actualFrequency, signalAmplitude,
+				signalTypeStr, commandFrequency, times, requests, measurements1, cycleStopTimes)
 		fig = plotExpStats(devId1, fig, dev1WriteCommandTimes, dev1ReadCommandTimes)
 
 	printPlotExit()
