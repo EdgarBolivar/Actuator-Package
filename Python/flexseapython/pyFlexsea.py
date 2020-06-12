@@ -2,7 +2,7 @@ from ctypes import *
 import os
 import sys
 import platform
-from enum import Enum
+from enum import IntEnum
 
 global flexsea
 
@@ -29,6 +29,15 @@ global flexsea
  FxInvalidParam,
  FxInvalidDevice,
  FxNotStreaming) = map(c_int, range(5))
+
+# NOTE: In Python Enums are not integers. This class is
+# complementary to what’s above, make sure they match!”
+class IntegerFromEnumRetCode(IntEnum):
+    FxSuccess = 0
+    FxFailure = 1
+    FxInvalidParam = 2
+    FxInvalidDevice = 3
+    FxNotStreaming = 4
 
 ###################### App Type Enums #############################
 
@@ -541,35 +550,37 @@ def fxSetGains(devId, kp, ki, kd, K, B):
 	if (retCode == FxInvalidDevice):
 		raise ValueError('fxSetGains: invalid device ID')
 
+
 def fxSendMotorCommand(devId, controlMode, value):
 	"""
 	Send a command to the device.
 
 	Parameters:
-	devId (int): The device ID.
-
-	controlMode (c_int): The control mode we will use to send this command.
-	Possible values are: FxPosition, FxCurrent, FxVoltage, FxImpedence
-
-	value (int): The value to use for the controlMode.
-	FxPosition - encoder value
-	FxCurrent - current in mA
-	FxVoltage - voltage in mV
-	FxImpedence - current in mA
+		devId (int): The device ID.
+		controlMode (c_int): The control mode we will use to send this command.
+			Possible values are: FxPosition, FxCurrent, FxVoltage, FxImpedence
+		value (int): The value to use for the controlMode.
+			FxPosition - encoder value.
+			FxCurrent: current in mA.
+			FxVoltage: voltage in mV.
+			FxImpedence: current in mA.
 
 	Raises:
-	ValueError if invalid device ID
-	ValueError if invalid controlType
+	ValueError - if invalid device ID.
+	ValueError - if invalid controlType.
 	"""
 	global flexsea
 
-	retCode = flexsea.fxSendMotorCommand(devId, controlMode, c_int(int(value)))
+	# retCode = flexsea.fxSendMotorCommand(devId, controlMode, c_int(int(value)))
+	return_code: IntegerFromEnumRetCode = IntegerFromEnumRetCode(flexsea.fxSendMotorCommand(devId,
+						controlMode, c_int(int(value))))
 
-	if (retCode == FxInvalidDevice):
+	# print('Debug: pyFlexsea.py/fxSendMotorCommand(): return_code:', return_code)
+	if return_code == IntegerFromEnumRetCode.FxInvalidDevice:
 		raise ValueError('fxSendMotorCommand: invalid device ID')
-	if (retCode == FxFailure):
+	if return_code == IntegerFromEnumRetCode.FxFailure:
 		raise IOError('fxSendMotorCommand: command failed')
-	if (retCode == FxInvalidParam):
+	if return_code == IntegerFromEnumRetCode.FxInvalidParam:
 		raise ValueError('fxSendMotorCommand: invalid controlType')
 
 def fxGetAppType(devId):

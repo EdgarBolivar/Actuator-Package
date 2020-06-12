@@ -89,7 +89,7 @@ def printLoopCount(i, total):
 
 # And some will include the elapsed time
 def printLoopCountAndTime(i, total, elapsed_time):
-	print('\nLoop', i + 1, 'of', total, '- Elapsed time:', int(elapsed_time+0.5), 's', end='\r')
+	print('Loop', i, 'of', total, '- Elapsed time:', int(elapsed_time+0.5), 's', end='\r')
 
 # By default takes just one device from your com.txt file
 # If two arguments are passed, one is the path of the COM.txt file

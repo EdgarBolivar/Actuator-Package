@@ -1,6 +1,6 @@
 # import os, sys, math  # Not used
 from time import sleep, time, strftime
-# from enum import Enum  # Not used
+from enum import Enum
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
@@ -226,7 +226,7 @@ def fxHighSpeedTest(port0, baudRate, port1 = "", controllerType = hssCurrent,
 	commandFrequency = i / elapsedTime
 
 	# Figure: setpoint, desired vs measured (1st device)
-	fig = 1	# First time, functions will increment
+	fig = 1		# First time, functions will increment
 	fig = plotSetpointVsDesired(devId0, fig, controllerType, actualFrequency, signalAmplitude,
 				signalTypeStr, commandFrequency, times, requests, measurements0, cycleStopTimes)
 	fig = plotExpStats(devId0, fig, dev0WriteCommandTimes, dev0ReadCommandTimes)

@@ -64,7 +64,7 @@ def plotSetpointVsDesired(devId, figCounter, controllerType, signalFrequency, si
 def plotExpStats(devId, figCounter, writeCommandTimes, readCommandTimes):
 	figCounter = plotExpStatsOneType(devId, figCounter, writeCommandTimes, "Write")
 	figCounter = plotExpStatsOneType(devId, figCounter, readCommandTimes, "Read")
-	return fig
+	return figCounter
 
 # Two figures: command and stream times in linear and occurrence log
 def plotExpStatsOneType(devId, figCounter, actionTimes, title):

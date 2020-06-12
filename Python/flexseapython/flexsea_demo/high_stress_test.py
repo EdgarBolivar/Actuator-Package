@@ -1,17 +1,16 @@
-import os
-import sys
-import math
+# import os
+# import sys
+# import math
+# from datetime import datetime	# Create unique log filename
+# from scipy import stats
 from time import sleep, time
-from datetime import datetime	# Create unique log filename
 from enum import Enum
 import numpy as np
 import matplotlib.pyplot as plt
-#Next two lines are used to plot in a browser:
 import matplotlib
-matplotlib.use('WebAgg')
-from scipy import stats
 from flexseapython.fxUtil import *
 
+matplotlib.use('WebAgg')
 pardir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 print(pardir)
 sys.path.append(pardir)
@@ -19,14 +18,15 @@ sys.path.append(pardir)
 ######## These arrays are updated concurrently with every new timestamp ############
 times = []
 currentRequests = []
-currentMeasurements0 = []	# For devId0
-currentMeasurements1 = []	# For devId1
+currentMeasurements0 = []		# For devId0
+currentMeasurements1 = []		# For devId1
 positionRequests = []
-positionMeasurements0 = []	# For devId0
-positionMeasurements1 = []	# For devId1
-readDeviceTimes = []		# Timing data for fxReadDevice()
-sendMotorTimes = []			# Timing data for fxSendMotorCommand
-setGainsTimes = []			# Timing data for fxSetGains()
+positionMeasurements0 = []		# For devId0
+positionMeasurements1 = []		# For devId1
+readDeviceTimes = []			# Timing data for fxReadDevice()
+sendMotorTimes = []				# Timing data for fxSendMotorCommand
+setGainsTimes = []				# Timing data for fxSetGains()
+
 #####################################################################
 cycleStopTimes = []		# Use to draw a line at end of every period
 data0 = 0				# Contains state of ActPack0 
